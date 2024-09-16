@@ -1,0 +1,3 @@
+[submodule "libfreedom"]
+	path = libfreedom
+	url = https://github.com/CocytusDEDI/libfreedom.git
