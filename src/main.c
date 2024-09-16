@@ -1,20 +1,28 @@
 #include <stdio.h>
 #include <sys/utsname.h>
-#include <string.h>
 
 int main() {
+    return 0;
+}
+
+struct system_freedom {
+    char os_name[128];         // Operating system name
+    char architecture[32];     // CPU architecture
+    char firmware_type[64];    // Type of firmware (e.g., BIOS, UEFI, Coreboot)
+    int proprietary_drivers;   // Number of proprietary_drivers
+};
+
+struct system_freedom get_hardware_freedom() {
+    struct system_freedom system_freedom_struct;
+
     struct utsname hardwareinfo;
 
     if (uname(&hardwareinfo) == 0) {
-        if (strcmp(hardwareinfo.machine, "riscv64") == 0 || strcmp(hardwareinfo.machine, "riscv32") == 0) {
-            printf("Architecture: %s ✔\n", hardwareinfo.machine);
-        } else {
-            printf("Architecture: %s ✖\n", hardwareinfo.machine);
-        }
+        snprintf(system_freedom_struct.os_name, sizeof(system_freedom_struct.os_name), "%s", hardwareinfo.sysname);
+        snprintf(system_freedom_struct.architecture, sizeof(system_freedom_struct.architecture), "%s", hardwareinfo.machine);
     } else {
-        perror("uname failed");
-        return 1;
+        perror("Hardware detection failure: utsname failed");
     }
 
-    return 0;
+    return system_freedom_struct;
 }
