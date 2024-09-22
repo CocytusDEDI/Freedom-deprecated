@@ -70,3 +70,6 @@ build/
 
 # Swap files
 *.kate-swp
+
+# Cache directory
+.cache/
