@@ -9,6 +9,4 @@ add_subdirectory(libfreedom)
 add_executable(freedom src/main.c)
 
 # Link the submodule library to the main project as a shared library
-target_link_libraries(freedom INTERFACE libfreedom)
-
-target_include_directories(freedom PUBLIC libfreedom/include)
+target_link_libraries(freedom PUBLIC libfreedom -ldrm)
